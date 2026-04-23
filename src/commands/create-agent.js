@@ -7,7 +7,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const TEMPLATES_DIR = path.resolve(__dirname, '../../templates/agent');
 const AGENTS_DIR = path.resolve(process.cwd(), '.crews/agents');
 
-const TEMPLATE_FILES = ['charter.md', 'prompt.md', 'config.json'];
+const TEMPLATE_FILES = ['role.md', 'prompt.md', 'config.json'];
 
 export async function createAgent(name) {
   if (!name) {
@@ -40,7 +40,7 @@ export async function createAgent(name) {
 
   process.stdout.write(`Agent "${name}" created at ${agentDir}\n`);
   process.stdout.write(`Edit the files to define the agent's role:\n`);
-  process.stdout.write(`  ${agentDir}/charter.md   — role, expertise, boundaries\n`);
+  process.stdout.write(`  ${agentDir}/role.md       — role, expertise, boundaries\n`);
   process.stdout.write(`  ${agentDir}/prompt.md     — system prompt\n`);
   process.stdout.write(`  ${agentDir}/config.json   — model, temperature, type (analysis|action)\n`);
 }

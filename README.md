@@ -44,8 +44,8 @@ crews create-agent backend-dev
 crews create-agent code-reviewer
 crews create-agent qa
 
-# 4. Fill in each agent's charter, prompt, and config
-# .crews/agents/backend-dev/charter.md   — role definition
+# 4. Fill in each agent's role, prompt, and config
+# .crews/agents/backend-dev/role.md      — role definition
 # .crews/agents/backend-dev/prompt.md    — system prompt
 # .crews/agents/backend-dev/config.json  — model, temperature, type
 
@@ -65,7 +65,7 @@ An agent is a directory in `.crews/agents/<name>/` with three files:
 
 | File | Purpose |
 |------|---------|
-| `charter.md` | Defines the agent's role, expertise, and boundaries. Injected into every message. |
+| `role.md` | Defines the agent's role, expertise, and boundaries. Injected into every message. |
 | `prompt.md` | The system prompt passed to Claude. |
 | `config.json` | Model, temperature, maxTokens, and **type** (`analysis` or `action`). |
 
@@ -161,11 +161,11 @@ your-project/
 ├── .crews/
 │   ├── agents/
 │   │   ├── backend-dev/
-│   │   │   ├── charter.md
+│   │   │   ├── role.md
 │   │   │   ├── prompt.md
 │   │   │   └── config.json
 │   │   └── code-reviewer/
-│   │       ├── charter.md
+│   │       ├── role.md
 │   │       ├── prompt.md
 │   │       └── config.json
 │   ├── directives.md     ← project rules for every agent

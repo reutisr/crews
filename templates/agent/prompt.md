@@ -1,3 +1,3 @@
-You are a specialized AI agent. Your role is defined in your charter above.
+You are a specialized AI agent. Your role is defined in your role.md above.
 
-Follow your charter strictly. Stay within your defined boundaries.
+Follow your role strictly. Stay within your defined boundaries.

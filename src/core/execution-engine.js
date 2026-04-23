@@ -124,7 +124,7 @@ export async function readSkills(skillNames) {
 // For analysis agents (architect, code-reviewer): embed full content as they are read-only.
 // Skills are always embedded — they are not auto-loaded in --print subprocess mode.
 export function composeMessage(task, agent, contextContents, previousOutput = null, prevAgentName = null, skills = [], directives = '', decisions = '', claudeMdContents = []) {
-  let message = `## Task\n\n${task.description}\n\n## Your Role\n\n${agent.charter}`;
+  let message = `## Task\n\n${task.description}\n\n## Your Role\n\n${agent.role}`;
 
   // Inject directives — permanent project rules every agent must follow
   if (directives) {

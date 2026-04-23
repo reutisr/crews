@@ -17,7 +17,7 @@ async function readAgentFile(agentName, filename) {
 }
 
 export async function loadAgent(name) {
-  const charter = await readAgentFile(name, 'charter.md');
+  const role = await readAgentFile(name, 'role.md');
   const prompt = await readAgentFile(name, 'prompt.md');
 
   const configRaw = await readAgentFile(name, 'config.json');
@@ -36,7 +36,7 @@ export async function loadAgent(name) {
     );
   }
 
-  return { name, charter, prompt, config };
+  return { name, role, prompt, config };
 }
 
 export async function loadAgents(names) {
