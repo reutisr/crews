@@ -1,0 +1,30 @@
+{
+  "name": "squad-cli",
+  "version": "1.0.0",
+  "description": "Lightweight multi-agent CLI powered by Claude Code — parallel, sequential, and retry-loop orchestration for any codebase",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "bin": {
+    "squad": "./cli.js"
+  },
+  "scripts": {
+    "test": "mocha 'test/**/*.test.js' 'test/**/*.property.js'"
+  },
+  "keywords": [
+    "claude",
+    "ai-agents",
+    "multi-agent",
+    "cli",
+    "code-review",
+    "orchestration"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "^4.3.10",
+    "fast-check": "^3.15.0",
+    "mocha": "^10.3.0",
+    "sinon": "^17.0.1"
+  }
+}

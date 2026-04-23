@@ -1,0 +1,8 @@
+{
+  "description": "Implement the feature described below, then write tests for it, then have an architect review the result.\n\nFeature: [describe what needs to be built here]",
+  "agents": ["backend-dev", "qa", "architect"],
+  "mode": "sequential",
+  "context": [
+    "src/relevant-file.js"
+  ]
+}

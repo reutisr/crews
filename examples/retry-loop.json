@@ -1,0 +1,14 @@
+{
+  "description": "Implement the feature described below. The code reviewer will gate the loop — if it finds critical issues, the implementer will fix them and the loop repeats until the code is ready or 3 rounds are exhausted.\n\nFeature: [describe what needs to be built here]",
+  "agents": ["backend-dev", "qa", "architect", "code-reviewer"],
+  "mode": "sequential",
+  "context": [
+    "src/relevant-file.js"
+  ],
+  "retry": {
+    "maxRounds": 3,
+    "reviewerAgent": "code-reviewer"
+  },
+  "aggregator": true,
+  "finalAgents": ["git-push"]
+}

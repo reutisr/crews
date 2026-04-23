@@ -1,0 +1,10 @@
+{
+  "description": "Review the implementation in the context files. Each agent reviews independently from their own perspective. An aggregated summary will highlight agreements, conflicts, and the highest-priority action items.",
+  "agents": ["backend-dev", "qa", "architect"],
+  "mode": "parallel",
+  "context": [
+    "src/your-feature.js",
+    "test/your-feature.test.js"
+  ],
+  "aggregator": true
+}
