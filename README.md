@@ -178,14 +178,20 @@ your-project/
 
 ## Example agents to build
 
+All 10 agents below are available as ready-to-use starters in `examples/agents/`. Copy any of them into your `.crews/agents/` directory and customize for your stack.
+
 | Agent | Type | Role |
 |-------|------|------|
 | `backend-dev` | action | Implements features, fixes bugs |
-| `code-reviewer` | analysis | Gates the retry loop — emits `Verdict:` line |
 | `qa` | action | Writes and runs tests |
+| `test-runner` | action | Runs the test suite and reports results — used in retry loops |
+| `git-push` | action | Commits, pushes, opens PR — used as `finalAgent` |
+| `code-reviewer` | analysis | Gates the retry loop — emits `Verdict:` line |
 | `architect` | analysis | Reviews design decisions, appends to `decisions.md` |
 | `researcher` | analysis | Pre-implementation codebase research |
-| `git-push` | action | Commits, pushes, opens PR — used as `finalAgent` |
+| `product-manager` | analysis | Reviews against product requirements — emits `Verdict:` line |
+| `dr-compliance` | analysis | Checks implementation against a spec/design doc — emits `Verdict:` line |
+| `task-verifier` | action | Marks completed subtasks in a task list — emits `Verdict:` line |
 
 ## Environment variables
 
