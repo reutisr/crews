@@ -1,12 +1,12 @@
-# Squad
+# Crews
 
 A lightweight multi-agent CLI powered by [Claude Code](https://claude.ai/code). Define a team of specialized AI agents, point them at a task, and let them implement, test, review — and loop until the code is ready.
 
 Works with any codebase, any language. Zero npm runtime dependencies.
 
-## What makes Squad different
+## What makes Crews different
 
-Most multi-agent tools are fan-out only — all agents run in parallel and you get N independent outputs. Squad adds two more patterns:
+Most multi-agent tools are fan-out only — all agents run in parallel and you get N independent outputs. Crews adds two more patterns:
 
 - **Sequential pipelines** — agents hand off to each other. Backend dev implements, QA writes tests using that output, architect reviews both.
 - **Retry loops with verdict extraction** — a reviewer agent emits a `Verdict:` line. If it says "Needs fixes", the whole pipeline re-runs with targeted fix instructions prepended. Loops until "Ready to merge" or `maxRounds` is reached.
