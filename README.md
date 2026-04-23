@@ -13,6 +13,9 @@ Most multi-agent tools are fan-out only — all agents run in parallel and you g
 
 And because agents run as `claude --print` subprocesses, **action agents can actually read and write files** — they're not just producing text.
 
+→ [Architecture & design flow](docs/architecture.md) — how message composition, execution modes, and the retry loop work under the hood.
+→ [Writing agents](docs/writing-agents.md) — how to write `role.md`, `prompt.md`, and `config.json` for a new agent, with a worked example.
+
 ## Prerequisites
 
 - Node.js 18+
@@ -178,7 +181,7 @@ your-project/
 
 ## Example agents to build
 
-All 10 agents below are available as ready-to-use starters in `examples/agents/`. Copy any of them into your `.crews/agents/` directory and customize for your stack.
+All 10 agents below are bundled into `crews init` — they're scaffolded automatically when you initialize a project. Customize any of them in `.crews/agents/<name>/` for your stack.
 
 | Agent | Type | Role |
 |-------|------|------|
