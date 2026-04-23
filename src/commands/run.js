@@ -52,7 +52,7 @@ function printSummary(results, outputDir, aggregated, task, rounds) {
 
 export async function run(taskFile) {
   if (!taskFile) {
-    process.stderr.write('Usage: squad run <task-file>\n');
+    process.stderr.write('Usage: crews run <task-file>\n');
     process.exit(1);
   }
 

@@ -79,7 +79,7 @@ export function spawnClaude(args, timeoutMs) {
 }
 
 export async function runAgent({ name, systemPrompt, model, type, userMessage, timeoutMs }) {
-  if (process.env.SQUAD_MOCK === 'true') {
+  if (process.env.CREWS_MOCK === 'true') {
     return {
       output: `[MOCK] Agent "${name}" output for: ${userMessage.slice(0, 100)}`,
       exitCode: 0,

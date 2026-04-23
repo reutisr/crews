@@ -5,7 +5,7 @@ import { createProgress } from '../utils/progress.js';
 
 // Task 26b — centralised path helpers
 export function getOutputDir(taskName) {
-  return path.resolve(`.squad/output/${taskName}`);
+  return path.resolve(`.crews/output/${taskName}`);
 }
 
 export function getAgentOutputPath(taskName, agentName) {
@@ -63,21 +63,21 @@ export async function readContextFiles(filePaths) {
   );
 }
 
-// Read .squad/directives.md — permanent project rules injected into every agent.
+// Read .crews/directives.md — permanent project rules injected into every agent.
 // Returns empty string if the file does not exist (graceful fallback).
 export async function readDirectives() {
   try {
-    return await fs.readFile(path.resolve('.squad/directives.md'), 'utf-8');
+    return await fs.readFile(path.resolve('.crews/directives.md'), 'utf-8');
   } catch {
     return '';
   }
 }
 
-// Read .squad/decisions.md — accumulated architectural decisions from previous task runs.
+// Read .crews/decisions.md — accumulated architectural decisions from previous task runs.
 // Returns empty string if the file does not exist.
 export async function readDecisions() {
   try {
-    return await fs.readFile(path.resolve('.squad/decisions.md'), 'utf-8');
+    return await fs.readFile(path.resolve('.crews/decisions.md'), 'utf-8');
   } catch {
     return '';
   }
@@ -133,7 +133,7 @@ export function composeMessage(task, agent, contextContents, previousOutput = nu
 
   // Inject architectural decisions from previous task runs
   if (decisions) {
-    message += `\n\n## Architectural Decisions (from previous squad runs)\n\n${decisions}`;
+    message += `\n\n## Architectural Decisions (from previous crews runs)\n\n${decisions}`;
   }
 
   // Inject skills — always embedded regardless of agent type
@@ -380,10 +380,10 @@ export async function execute(task, agents, finalAgents = []) {
     console.log(`Loaded skills: ${skills.map((s) => s.name).join(', ')}`);
   }
   if (directives) {
-    console.log('Loaded directives from .squad/directives.md');
+    console.log('Loaded directives from .crews/directives.md');
   }
   if (decisions) {
-    console.log('Loaded decisions from .squad/decisions.md');
+    console.log('Loaded decisions from .crews/decisions.md');
   }
   if (claudeMdContents.length > 0) {
     console.log(`Loaded CLAUDE.md: ${claudeMdContents.map((f) => f.path).join(', ')}`);
@@ -416,15 +416,15 @@ export async function execute(task, agents, finalAgents = []) {
     rounds = null;
   }
 
-  // Auto-append new architectural decisions from architect output to .squad/decisions.md
+  // Auto-append new architectural decisions from architect output to .crews/decisions.md
   const architectResult = results.find((r) => r.agentName === 'architect');
   if (architectResult && architectResult.status === 'complete') {
     const newDecisionsMatch = architectResult.output.match(/##\s*New Decisions[\s\S]*$/i);
     if (newDecisionsMatch) {
       try {
-        const decisionsPath = path.resolve('.squad/decisions.md');
+        const decisionsPath = path.resolve('.crews/decisions.md');
         await fs.appendFile(decisionsPath, `\n${newDecisionsMatch[0].trim()}\n`, 'utf-8');
-        console.log('Updated .squad/decisions.md with new architectural decisions.');
+        console.log('Updated .crews/decisions.md with new architectural decisions.');
       } catch {
         // Non-fatal — decisions.md update failure should not abort the run
       }

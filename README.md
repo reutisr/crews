@@ -22,46 +22,46 @@ And because agents run as `claude --print` subprocesses, **action agents can act
 
 ```bash
 # Option A — global install from npm
-npm install -g squad-cli
+npm install -g crews-cli
 
 # Option B — clone and link locally
-git clone https://github.com/your-org/squad
-cd squad && npm link
+git clone https://github.com/reutisr/crews
+cd crews && npm link
 ```
 
 ## Quick start
 
 ```bash
-# 1. Set up .squad/ in your project
+# 1. Set up .crews/ in your project
 cd your-project
-squad init
+crews init
 
-# 2. Edit .squad/directives.md with your project's rules
+# 2. Edit .crews/directives.md with your project's rules
 # (code style, security policies, testing conventions)
 
 # 3. Scaffold some agents
-squad create-agent backend-dev
-squad create-agent code-reviewer
-squad create-agent qa
+crews create-agent backend-dev
+crews create-agent code-reviewer
+crews create-agent qa
 
 # 4. Fill in each agent's charter, prompt, and config
-# .squad/agents/backend-dev/charter.md   — role definition
-# .squad/agents/backend-dev/prompt.md    — system prompt
-# .squad/agents/backend-dev/config.json  — model, temperature, type
+# .crews/agents/backend-dev/charter.md   — role definition
+# .crews/agents/backend-dev/prompt.md    — system prompt
+# .crews/agents/backend-dev/config.json  — model, temperature, type
 
 # 5. Create a task file (copy from examples/)
-cp node_modules/squad-cli/examples/retry-loop.json my-task.json
+cp node_modules/crews-cli/examples/retry-loop.json my-task.json
 # Edit description and context paths
 
 # 6. Run it
-squad run my-task.json
+crews run my-task.json
 ```
 
 ## Concepts
 
 ### Agents
 
-An agent is a directory in `.squad/agents/<name>/` with three files:
+An agent is a directory in `.crews/agents/<name>/` with three files:
 
 | File | Purpose |
 |------|---------|
@@ -134,7 +134,7 @@ The reviewer agent must emit a line starting with `Verdict:` — e.g. `Verdict: 
 
 ### Directives
 
-`.squad/directives.md` — permanent project rules injected into every agent on every run. Use it for:
+`.crews/directives.md` — permanent project rules injected into every agent on every run. Use it for:
 
 - Security policies
 - Code style rules
@@ -143,22 +143,22 @@ The reviewer agent must emit a line starting with `Verdict:` — e.g. `Verdict: 
 
 ### Decisions
 
-`.squad/decisions.md` — accumulated architectural decisions. When the `architect` agent emits a `## New Decisions` section in its output, Squad auto-appends it here. This builds up institutional memory across runs without manual upkeep.
+`.crews/decisions.md` — accumulated architectural decisions. When the `architect` agent emits a `## New Decisions` section in its output, Crews auto-appends it here. This builds up institutional memory across runs without manual upkeep.
 
 ### Output
 
-All outputs go to `.squad/output/<task-name>/`:
+All outputs go to `.crews/output/<task-name>/`:
 
 - Single-round: `backend-dev.md`, `qa.md`, `architect.md`, `aggregated.md`
 - Multi-round: `round-1/`, `round-2/`, ..., `git-push.md`
 
-Add `.squad/output/` to `.gitignore`.
+Add `.crews/output/` to `.gitignore`.
 
 ## Project structure
 
 ```
 your-project/
-├── .squad/
+├── .crews/
 │   ├── agents/
 │   │   ├── backend-dev/
 │   │   │   ├── charter.md
@@ -191,7 +191,7 @@ your-project/
 
 | Variable | Description |
 |----------|-------------|
-| `SQUAD_MOCK=true` | Dry-run mode — agents return mock output without calling Claude |
+| `CREWS_MOCK=true` | Dry-run mode — agents return mock output without calling Claude |
 
 ## Running tests
 

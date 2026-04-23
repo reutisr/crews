@@ -1,5 +1,5 @@
 {
-  "name": "squad-cli",
+  "name": "crews-cli",
   "version": "1.0.0",
   "description": "Lightweight multi-agent CLI powered by Claude Code — parallel, sequential, and retry-loop orchestration for any codebase",
   "type": "module",
@@ -7,7 +7,7 @@
     "node": ">=18"
   },
   "bin": {
-    "squad": "./cli.js"
+    "crews": "./cli.js"
   },
   "scripts": {
     "test": "mocha 'test/**/*.test.js' 'test/**/*.property.js'"

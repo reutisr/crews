@@ -2,7 +2,7 @@ import fs from 'fs/promises';
 import path from 'path';
 import { validateAgentConfig } from '../utils/validation.js';
 
-const AGENTS_DIR = path.resolve(process.cwd(), '.squad/agents');
+const AGENTS_DIR = path.resolve(process.cwd(), '.crews/agents');
 
 async function readAgentFile(agentName, filename) {
   const filepath = path.join(AGENTS_DIR, agentName, filename);

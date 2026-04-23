@@ -8,9 +8,9 @@ function parseArgs() {
 function printUsage() {
   process.stderr.write(
     'Usage:\n' +
-    '  squad init                   Set up .squad/ in the current project\n' +
-    '  squad create-agent <name>    Scaffold a new agent\n' +
-    '  squad run <task-file>        Run a task against configured agents\n'
+    '  crews init                   Set up .crews/ in the current project\n' +
+    '  crews create-agent <name>    Scaffold a new agent\n' +
+    '  crews run <task-file>        Run a task against configured agents\n'
   );
   process.exit(1);
 }

@@ -1,6 +1,6 @@
 # Architectural Decisions
 
-Accumulated decisions from previous squad runs. The `architect` agent appends new decisions here automatically when it emits a `## New Decisions` section.
+Accumulated decisions from previous crews runs. The `architect` agent appends new decisions here automatically when it emits a `## New Decisions` section.
 
 Format for each entry:
 
@@ -14,4 +14,4 @@ Format for each entry:
 
 ---
 
-<!-- Decisions will be appended here automatically during squad runs -->
+<!-- Decisions will be appended here automatically during crews runs -->

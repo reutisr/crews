@@ -5,13 +5,13 @@ import { validateAgentName } from '../utils/validation.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const TEMPLATES_DIR = path.resolve(__dirname, '../../templates/agent');
-const AGENTS_DIR = path.resolve(process.cwd(), '.squad/agents');
+const AGENTS_DIR = path.resolve(process.cwd(), '.crews/agents');
 
 const TEMPLATE_FILES = ['charter.md', 'prompt.md', 'config.json'];
 
 export async function createAgent(name) {
   if (!name) {
-    process.stderr.write('Usage: squad create-agent <name>\n');
+    process.stderr.write('Usage: crews create-agent <name>\n');
     process.exit(1);
   }
 
