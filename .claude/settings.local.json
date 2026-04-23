@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm whoami:*)",
+      "Bash(npm view:*)",
+      "Bash(curl -s https://registry.npmjs.org/crews-cli)",
+      "Bash(npm pack:*)",
+      "Bash(gh api:*)",
+      "Bash(crews:*)",
+      "Bash(cp:*)",
+      "Bash(npm version:*)"
+    ]
+  }
+}
