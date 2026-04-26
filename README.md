@@ -186,6 +186,7 @@ All 10 agents below are bundled into `crews init` — they're scaffolded automat
 | Agent | Type | Role |
 |-------|------|------|
 | `backend-dev` | action | Implements features, fixes bugs |
+| `frontend-dev` | action | Implements UI features, components, and styling |
 | `qa` | action | Writes and runs tests |
 | `test-runner` | action | Runs the test suite and reports results — used in retry loops |
 | `git-push` | action | Commits, pushes, opens PR — used as `finalAgent` |

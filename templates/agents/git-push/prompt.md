@@ -68,6 +68,7 @@ If no PR exists, create one:
 
 ```bash
 gh pr create \
+  --base master \
   --title "<title from task>" \
   --body "$(cat <<'EOF'
 ## Summary
