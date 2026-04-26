@@ -1,6 +1,6 @@
 {
   "name": "crews-cli",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Lightweight multi-agent CLI powered by Claude Code — parallel, sequential, and retry-loop orchestration for any codebase",
   "type": "module",
   "engines": {
