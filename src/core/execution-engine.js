@@ -410,6 +410,11 @@ export async function execute(task, agents, finalAgents = []) {
     // Flatten the last round's results for backwards-compatible summary printing
     const lastRound = roundResults[roundResults.length - 1];
     results = lastRound ? lastRound.results : [];
+
+    // Warn if max rounds exhausted without a passing verdict
+    if (lastRound && lastRound.verdict === 'needs-fixes') {
+      process.stderr.write(`\nWarning: max rounds (${task.retry.maxRounds}) reached — verdict is still "needs fixes". Final agents will not run.\n`);
+    }
   } else {
     // Standard sequential execution (no retry)
     results = await executeSequential(task, agents, contextContents, progress, outputDir, null, skills, directives, decisions, claudeMdContents);
@@ -431,9 +436,12 @@ export async function execute(task, agents, finalAgents = []) {
     }
   }
 
-  // Run finalAgents once after the retry loop completes — regardless of verdict.
-  // These agents (e.g. git-push) should only run once at the very end, not every round.
-  if (finalAgents.length > 0) {
+  // Run finalAgents once after the retry loop completes — only if verdict passed.
+  // Skip if max rounds were exhausted with a failing verdict (e.g. don't git-push unreviewed code).
+  const lastRoundVerdict = rounds ? rounds[rounds.length - 1]?.verdict : null;
+  const finalAgentsBlocked = lastRoundVerdict === 'needs-fixes';
+
+  if (finalAgents.length > 0 && !finalAgentsBlocked) {
     process.stderr.write('\n── Final agents ──────────────────────────────\n');
     const finalResults = await executeSequential(task, finalAgents, contextContents, progress, outputDir, null, skills, directives, decisions, claudeMdContents);
     results = [...results, ...finalResults];

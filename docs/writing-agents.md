@@ -229,7 +229,7 @@ Use your Read tool to read the actual files from disk.
 }
 ```
 
-Both `security-reviewer` and `code-reviewer` will emit verdicts — the loop only exits when both say "Ready to merge".
+`code-reviewer` is the verdict agent here — it gates the retry loop. `security-reviewer` runs and produces findings, but its output does not affect the verdict. If you want `security-reviewer` to gate the loop too, add it to the `VERDICT_AGENTS` list in `src/core/execution-engine.js`.
 
 ---
 
@@ -246,7 +246,7 @@ then read the actual files from disk to see the current state.
 
 ### Agents that run once at the end
 
-Use `finalAgents` in your task for agents that should run exactly once after the retry loop completes — regardless of how many rounds it took. The `git-push` agent is the canonical example: commit, push, open PR.
+Use `finalAgents` in your task for agents that should run exactly once after the retry loop completes — but only if the verdict passed. If max rounds are exhausted with a failing verdict, final agents are skipped and a warning is printed. The `git-push` agent is the canonical example: commit, push, open PR.
 
 ```json
 {

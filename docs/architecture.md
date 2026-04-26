@@ -28,6 +28,9 @@ graph TD
     SM -->|spawns| Claude
     RL -->|spawns per round| Claude
     RL -->|verdict: needs-fixes| RL
+    RL -->|verdict: ready| FA["Final Agents Runner"]
+    FA -->|spawns| Claude
+    FA -->|saves| Output
     EE -->|saves per round| Output[".crews/output/&lt;task&gt;/round-N/"]
     EE -->|optional| Agg["Aggregator"]
     Agg -->|spawns| Claude
@@ -115,15 +118,16 @@ crews/
 │   │   └── config.json         # Template for new agent config
 │   └── agents/                 # 10 bundled agents, copied by crews init
 │       ├── backend-dev/
-│       ├── code-reviewer/
+│       ├── frontend-dev/
 │       ├── qa/
+│       ├── test-runner/
+│       ├── git-push/
+│       ├── code-reviewer/
 │       ├── architect/
 │       ├── researcher/
 │       ├── product-manager/
 │       ├── dr-compliance/
-│       ├── task-verifier/
-│       ├── test-runner/
-│       └── git-push/
+│       └── task-verifier/
 └── examples/
     ├── sequential-implement.json
     ├── parallel-review.json
@@ -189,7 +193,7 @@ sequenceDiagram
         end
     end
 
-    opt finalAgents present
+    opt finalAgents present AND verdict passed
         EE->>CR: Run finalAgents sequentially (once, after loop)
         CR->>CC: claude --print -p "task..."
         CC-->>CR: stdout (output)
@@ -220,7 +224,7 @@ flowchart TD
     V1 -->|Yes| FinalAgents[Run finalAgents once]
     FinalAgents --> Done([Done ✓])
     V1 -->|No — needs fixes| Check{More rounds?}
-    Check -->|No — max reached| Exhausted([Report max rounds exhausted])
+    Check -->|No — max reached| Exhausted([Warning: max rounds exhausted — finalAgents skipped])
     Check -->|Yes| Extract[Extract Critical Issues from reviewer output]
     Extract --> Inject[Prepend as Fix Instructions to next round's first agent]
     Inject --> RN[Run all agents: round N]
@@ -325,7 +329,7 @@ interface RoundResult {
 // execute(task, agents, finalAgents): Promise<{ results, aggregated, outputDir, rounds }>
 // - Reads directives.md, decisions.md, context files, skills, CLAUDE.md files
 // - Dispatches to parallel, sequential, or retry runner
-// - Runs finalAgents once after the main loop
+// - Runs finalAgents once after the main loop — skipped if verdict is still 'needs-fixes'
 // - Auto-appends architect's ## New Decisions to .crews/decisions.md
 // - Runs aggregation if task.aggregator is true
 

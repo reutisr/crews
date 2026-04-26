@@ -50,7 +50,7 @@ crews create-agent qa
 # 4. Fill in each agent's role, prompt, and config
 # .crews/agents/backend-dev/role.md      — role definition
 # .crews/agents/backend-dev/prompt.md    — system prompt
-# .crews/agents/backend-dev/config.json  — model, temperature, type
+# .crews/agents/backend-dev/config.json  — model, type, optional timeout
 
 # 5. Create a task file (copy from examples/)
 cp node_modules/crews-cli/examples/retry-loop.json my-task.json
@@ -70,7 +70,7 @@ An agent is a directory in `.crews/agents/<name>/` with three files:
 |------|---------|
 | `role.md` | Defines the agent's role, expertise, and boundaries. Injected into every message. |
 | `prompt.md` | The system prompt passed to Claude. |
-| `config.json` | Model, temperature, maxTokens, and **type** (`analysis` or `action`). |
+| `config.json` | Model, **type** (`analysis` or `action`), and optional `timeoutMs`. |
 
 **Agent types:**
 
@@ -103,7 +103,7 @@ A task is a JSON file you create per feature or workflow:
 | `mode` | Yes | `"parallel"` or `"sequential"` |
 | `context` | No | File paths to inject as context. |
 | `retry` | No | `{ maxRounds: 1–10, reviewerAgent: "name" }` — enables retry loop. Sequential only. |
-| `finalAgents` | No | Agents to run once after the main loop (e.g. `git-push`). |
+| `finalAgents` | No | Agents to run once after the main loop (e.g. `git-push`). Skipped if max rounds are exhausted with a failing verdict. |
 | `aggregator` | No | `true` to synthesize all outputs into `aggregated.md`. |
 | `skills` | No | Skill names from `.claude/skills/<name>/SKILL.md` to inject. |
 | `claude_md` | No | Paths to context files (like `AGENTS.md`) to inject into action agents. |
@@ -130,7 +130,7 @@ task → [backend-dev] → output-1 → [qa] → output-2 → [architect] → ou
 Round 1: backend-dev → qa → architect → code-reviewer → "Needs fixes"
 Round 2: backend-dev (with fix instructions) → qa → architect → code-reviewer → "Ready to merge"
          ↓
-         finalAgents: git-push
+         finalAgents: git-push  ← only runs if verdict passed
 ```
 
 The reviewer agent must emit a line starting with `Verdict:` — e.g. `Verdict: Ready to merge` or `Verdict: Needs fixes`. Multiple agents can emit verdicts; **all must agree** before the loop exits.
@@ -196,6 +196,16 @@ All 10 agents below are bundled into `crews init` — they're scaffolded automat
 | `product-manager` | analysis | Reviews against product requirements — emits `Verdict:` line |
 | `dr-compliance` | analysis | Checks implementation against a spec/design doc — emits `Verdict:` line |
 | `task-verifier` | action | Marks completed subtasks in a task list — emits `Verdict:` line |
+
+## Dry-run mode
+
+Set `CREWS_MOCK=true` to run a task without calling Claude. Each agent returns a mock output instantly — useful for testing your task JSON and agent configuration before spending real tokens.
+
+```bash
+CREWS_MOCK=true crews run my-task.json
+```
+
+You'll see the full summary table with timings and output paths, but no Claude calls are made and no files are modified.
 
 ## Environment variables
 

@@ -1,6 +1,5 @@
 {
   "model": "claude-sonnet-4-6",
-  "temperature": 0.2,
   "maxTokens": 8192,
   "type": "action",
   "timeoutMs": 900000

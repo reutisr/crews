@@ -8,7 +8,12 @@
       "Bash(gh api:*)",
       "Bash(crews:*)",
       "Bash(cp:*)",
-      "Bash(npm version:*)"
+      "Bash(npm version:*)",
+      "Bash(for f:*)",
+      "Bash(do)",
+      "Bash(node -e \":*)",
+      "Bash(done)",
+      "Bash(grep:*)"
     ]
   }
 }
